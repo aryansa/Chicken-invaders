@@ -58,7 +58,7 @@ public class Bullet implements DrawbleObject {
     public void setY(double y) {
         synchronized (lock) {
             this.y = y;
-            if (y <= 0)
+            if (y <= 0 || y >= Settings.SCREEN_SIZE.height)
                 setDestruction(true);
         }
     }

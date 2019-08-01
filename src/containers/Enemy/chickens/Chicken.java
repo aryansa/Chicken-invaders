@@ -1,6 +1,9 @@
 package containers.Enemy.chickens;
 
 import containers.DrawbleObject;
+import containers.bullet.Bullet;
+import containers.bullet.Coin;
+import containers.bullet.IncreaseTemp;
 import root.Settings;
 
 import java.awt.*;
@@ -99,5 +102,20 @@ public class Chicken implements DrawbleObject {
     @Override
     public boolean isDestruction() {
         return destruction;
+    }
+
+    public boolean soot() {
+        int random = (int) (Math.random() * 50);
+        return random == 6;
+    }
+
+    public Bullet gift() {
+//        int random = (int) (Math.random() * 3);
+//        if (random == 1)
+//            return new IncreaseTemp(getX(), getY());
+//        else if (random == 2)
+            return new Coin(getX(), getY());
+//        else return null;
+
     }
 }

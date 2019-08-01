@@ -9,16 +9,33 @@ public class Spaceship implements DrawbleObject {
     private Image image = Toolkit.getDefaultToolkit().createImage(Settings.SPACESHIP_JPG).getScaledInstance(Settings.SPACESHIP_SIZE.width, Settings.SPACESHIP_SIZE.height, Image.SCALE_DEFAULT);
     private double x = Settings.SCREEN_SIZE.width / 2 - (Settings.SPACESHIP_SIZE.width / 2);
     private double y = Settings.SCREEN_SIZE.height - Settings.SPACESHIP_SIZE.height - 100;
-    private double maxTemp = Settings.MAX_TEMP;
+    private int maxTemp = 100;
     private long lastShootTime = 0;
-    Thread increaseTemp = new Thread(this::run);
+    private int health = 100;
+    private boolean destruction = false;
+    private int eatCoin;
 
     public Spaceship() {
 
+        Thread increaseTemp = new Thread(this::run);
         increaseTemp.start();
     }
 
-    public void setTemp(int temp) {
+    public void setMaxTemp(int maxTemp) {
+        this.maxTemp += maxTemp;
+    }
+
+    public int getEatCoin() {
+        System.out.println(eatCoin);
+        return eatCoin;
+
+    }
+
+    public void increaseCoins(int eatCoin) {
+        this.eatCoin += eatCoin;
+    }
+
+    private void setTemp(int temp) {
         this.temp = temp;
     }
 
@@ -37,6 +54,23 @@ public class Spaceship implements DrawbleObject {
         synchronized (lock) {
             return temp;
         }
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void increaseHealth(int increase) {
+        this.health -= increase;
+        if (health <= 0) {
+            setDestruction(true);
+            System.out.println("die");
+        }
+    }
+
+
+    public void setDestruction(boolean destruction) {
+        this.destruction = destruction;
     }
 
     @Override
@@ -70,7 +104,7 @@ public class Spaceship implements DrawbleObject {
 
     @Override
     public boolean isDestruction() {
-        return false;
+        return destruction;
     }
 
     @Override
@@ -78,7 +112,7 @@ public class Spaceship implements DrawbleObject {
 
     }
 
-    public double getMaxTemp() {
+    public int getMaxTemp() {
         return maxTemp;
     }
 
