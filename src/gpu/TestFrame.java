@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class TestFrame extends JPanel {
     public TestFrame() {
-        this.setBounds(0, 0, Settings.screenSize.width, Settings.screenSize.height);
+        this.setBounds(0, 0, Settings.SCREEN_SIZE.width, Settings.SCREEN_SIZE.height);
         this.setBackground(Color.red);
         this.setVisible(true);
 

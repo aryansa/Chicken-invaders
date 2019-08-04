@@ -2,17 +2,18 @@ package gpu;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
-import static root.Settings.screenSize;
+import static root.Settings.SCREEN_SIZE;
 
 public class GameFrame extends JFrame {
     private JPanel jPanel;
 
-    public GameFrame() throws HeadlessException {
+    public GameFrame() throws HeadlessException, SQLException {
         GameFrame gameFrame = this;
-        this.setBounds(0, 0, screenSize.width, screenSize.height);
+        this.setBounds(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setTitle("Chiken");
+        this.setTitle("Chicken");
         this.setLayout(null);
         Menu menu = new Menu();
         this.setJMenuBar(menu);
@@ -27,6 +28,6 @@ public class GameFrame extends JFrame {
         this.jPanel = jpanel;
         this.add(jPanel);
         pack();
-        this.setBounds(0, 0, screenSize.width, screenSize.height);
+        this.setBounds(0, 0, SCREEN_SIZE.width, SCREEN_SIZE.height);
     }
 }
