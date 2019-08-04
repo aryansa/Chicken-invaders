@@ -1,13 +1,23 @@
 package root;
 
+import Services.MySqlService;
 import gpu.GameFrame;
-import gpu.WellcomePanel;
 
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main {
-    public static GameFrame frame ;
+    public static GameFrame frame;
+    public static MySqlService mySqlService;
+    static {
+        try {
+            mySqlService = new MySqlService();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
-     frame = new GameFrame();
+
+        frame = new GameFrame();
     }
 }
