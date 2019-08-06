@@ -1,6 +1,6 @@
 package gpu;
 
-import Containers.User;
+import containers.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,12 +20,12 @@ class WellcomePanel extends MyPanel {
         int startPoint = getWidth() / 4;
         int buttonWidth = getWidth() / 8;
         int buttonHeight = getHeight() / 16;
-        int buttonRaduis = 20;
-        JButton newUser = new RoundedBorderButton("New User", buttonRaduis);
+        int buttonRadius = 20;
+        JButton newUser = new RoundedBorderButton("New User", buttonRadius);
         newUser.setBounds(startPoint, buttonY, buttonWidth, buttonHeight);
-        JButton run = new RoundedBorderButton("Let's Go", buttonRaduis);
+        JButton run = new RoundedBorderButton("Let's Go", buttonRadius);
         run.setBounds((getWidth() / 2) - (buttonWidth / 2), buttonY, buttonWidth, buttonHeight);
-        JButton delete = new RoundedBorderButton("Delete User ", buttonRaduis);
+        JButton delete = new RoundedBorderButton("Delete User ", buttonRadius);
         delete.setBounds((getWidth() * 3 / 4) - buttonWidth, buttonY, buttonWidth, buttonHeight);
         this.add(run);
         this.add(delete);
