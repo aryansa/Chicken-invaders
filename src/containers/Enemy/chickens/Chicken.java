@@ -1,39 +1,35 @@
-package containers.bullet;
+package containers.Enemy.chickens;
 
 import containers.DrawbleObject;
 import root.Settings;
 
 import java.awt.*;
 
-public class Bullet implements DrawbleObject {
+public class Chicken implements DrawbleObject {
     private int power;
     private Image image;
     private double x;
     private double y;
     private int speed;
     boolean destruction = false;
+    int health = 5;
 
-    Bullet(double x, double y, int speed) {
+
+    public Chicken(double x, double y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
-
     }
 
-    private int getSpeed() {
-        return speed;
+    public void increaseHealth(int power) {
+        health -= power;
+        if (health <= 0) {
+            setDestruction(true);
+        }
     }
 
     public synchronized void move(float time) {
-        setY((getY() - (speed * time)));
-    }
 
-    public void setDestruction(boolean destruction) {
-        this.destruction = destruction;
-    }
-
-    public boolean isDestruction() {
-        return destruction;
     }
 
     void setPower(int power) {
@@ -42,11 +38,6 @@ public class Bullet implements DrawbleObject {
 
     void setImage(Image image) {
         this.image = image;
-    }
-
-    @Override
-    public Image getImage() {
-        return image;
     }
 
     public void setX(double x) {
@@ -58,9 +49,28 @@ public class Bullet implements DrawbleObject {
     public void setY(double y) {
         synchronized (lock) {
             this.y = y;
-            if (y <= 0)
-                setDestruction(true);
         }
+    }
+
+    public void setDestruction(boolean destruction) {
+        this.destruction = destruction;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public Image getImage() {
+        return image;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     @Override
@@ -79,15 +89,16 @@ public class Bullet implements DrawbleObject {
 
     @Override
     public double getWidth() {
-        return Settings.BULLET_SIZE.width;
+        return Settings.CHICKEN_SIZE.width;
     }
 
     @Override
     public double getHeight() {
-        return Settings.BULLET_SIZE.height;
+        return Settings.CHICKEN_SIZE.height;
     }
 
-    public int getPower() {
-        return power;
+    @Override
+    public boolean isDestruction() {
+        return destruction;
     }
 }

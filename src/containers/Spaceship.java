@@ -7,13 +7,14 @@ import java.awt.*;
 public class Spaceship implements DrawbleObject {
     private int temp = 0;
     private Image image = Toolkit.getDefaultToolkit().createImage(Settings.SPACESHIP_JPG).getScaledInstance(Settings.SPACESHIP_SIZE.width, Settings.SPACESHIP_SIZE.height, Image.SCALE_DEFAULT);
-    private int x = Settings.SCREEN_SIZE.width / 2 - (Settings.SPACESHIP_SIZE.width / 2);
-    private int y = Settings.SCREEN_SIZE.height - Settings.SPACESHIP_SIZE.height - 100;
+    private double x = Settings.SCREEN_SIZE.width / 2 - (Settings.SPACESHIP_SIZE.width / 2);
+    private double y = Settings.SCREEN_SIZE.height - Settings.SPACESHIP_SIZE.height - 100;
     private double maxTemp = Settings.MAX_TEMP;
     private long lastShootTime = 0;
     Thread increaseTemp = new Thread(this::run);
 
     public Spaceship() {
+
         increaseTemp.start();
     }
 
@@ -21,16 +22,21 @@ public class Spaceship implements DrawbleObject {
         this.temp = temp;
     }
 
-    private void setX(int x) {
+    private void setX(double x) {
         this.x = x;
+
     }
 
-    private void setY(int y) {
-        this.y = y;
+    private void setY(double y) {
+        synchronized (lock) {
+            this.y = y;
+        }
     }
 
     public int getTemp() {
-        return temp;
+        synchronized (lock) {
+            return temp;
+        }
     }
 
     @Override
@@ -39,18 +45,37 @@ public class Spaceship implements DrawbleObject {
     }
 
     @Override
-    public int getX() {
-        return x;
+    public double getX() {
+        synchronized (lock) {
+            return x;
+        }
     }
 
     @Override
-    public int getY() {
-        return y;
+    public double getY() {
+        synchronized (lock) {
+            return y;
+        }
+    }
+
+    @Override
+    public double getWidth() {
+        return Settings.SPACESHIP_SIZE.width;
+    }
+
+    @Override
+    public double getHeight() {
+        return Settings.SPACESHIP_SIZE.height;
     }
 
     @Override
     public boolean isDestruction() {
         return false;
+    }
+
+    @Override
+    public void move(float time) {
+
     }
 
     public double getMaxTemp() {
@@ -73,28 +98,22 @@ public class Spaceship implements DrawbleObject {
         return false;
     }
 
-    public void increaseTemp() {
-        if (!increaseTemp.isAlive()) {
-            increaseTemp.run();
-        }
-    }
 
     public void move(float time, int[] location) {
-        setX((int) (location[0]));
-        setY((int) (location[1]));
+        setX((location[0]));
+        setY(location[1]);
     }
 
     private void run() {
         while (true) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if (temp > 0) {
-                temp -= 1;
-            } else break;
+                setTemp(temp - 1);
+            }
         }
-        Thread.currentThread().suspend();
     }
 }
