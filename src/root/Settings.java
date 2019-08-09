@@ -4,17 +4,19 @@ import java.awt.*;
 
 public class Settings {
     // IMAGES
-    public static final String BACKGROUND_IMAGE = "/home/aryanpc/IdeaProjects/Chiken-invaders/img/background.jpg";
-    public static final String USER_PANEL_JPG = "/home/aryanpc/IdeaProjects/Chiken-invaders/img/userpanel.jpg";
-    public static final String SPACESHIP_JPG = "/home/aryanpc/IdeaProjects/Chiken-invaders/img/spaceship.gif";
-    public static final String BULLET_PNG = "/home/aryanpc/IdeaProjects/Chiken-invaders/img/bullet.png";
-    public static final String CHICKEN_PNG = "/home/aryanpc/IdeaProjects/Chiken-invaders/img/chicken.png";
+    public static final String BACKGROUND_IMAGE = "img/background.jpg";
+    public static final String USER_PANEL_JPG = "img/userpanel.jpg";
+    public static final String SPACESHIP_JPG = "img/spaceship.gif";
+    public static final String BULLET_PNG = "img/bullet.png";
+    public static final String CHICKEN_PNG = "img/chicken.png";
+    public static final String CHICKEN_BULLET = "img/chickenBullet.png";
 
     //SIZES
     public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
     public static final Dimension SPACESHIP_SIZE = new Dimension(100, 200);
     public static final Dimension BULLET_SIZE = new Dimension(20, 40);
     public static final Dimension CHICKEN_SIZE = new Dimension(50, 100);
+    public static final Dimension CHICKEN_BULLET_SIZE = new Dimension(20, 30);
 
     // idea : implement by Yaml file
     // DATA

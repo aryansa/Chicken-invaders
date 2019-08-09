@@ -18,7 +18,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class GamePanel extends MyPanel {
+public class GamePanel extends MyPanel {
     private long previousTime = System.currentTimeMillis();
     private long currentTime = previousTime;
     private long elapsedTime;
@@ -30,8 +30,9 @@ class GamePanel extends MyPanel {
     private Spaceship spaceship;
     private JLabel temp;
     private int showingTemp;
-    private final Object lock = new Object();
+    private static final Object lock = new Object();
     private ChickenGroup chickenGroup;
+
 
     GamePanel(Game game) {
         this.game = game;
@@ -62,6 +63,7 @@ class GamePanel extends MyPanel {
                     Level1 level1 = new Level1(mouseEvent.getX(), mouseEvent.getY());
                     draw.add(level1);
                     bullets.add(level1);
+                    System.out.println("sadasd");
                 }
             }
         }
@@ -101,6 +103,7 @@ class GamePanel extends MyPanel {
         if (showingTemp != spaceship.getTemp()) {
             setTemp(spaceship.getTemp());
         }
+
         synchronized (lock) {
             for (DrawbleObject drawbleObject : draw) {
                 g2.drawImage(
@@ -135,11 +138,11 @@ class GamePanel extends MyPanel {
     }
 
     private void handel(float elapsedTime, int[] mouseLocation) {
-
         spaceship.move(elapsedTime, mouseLocation);
         for (DrawbleObject drawbleObject : draw) {
             drawbleObject.move(elapsedTime);
         }
+
         if (enemy.isEmpty()) createChickenGroup();
         chickenGroup.move(elapsedTime);
         synchronized (lock) {
@@ -147,20 +150,20 @@ class GamePanel extends MyPanel {
         }
         enemy.removeIf(Chicken::isDestruction);
         bullets.removeIf(Bullet::isDestruction);
-        for (Bullet bullet : bullets) {
-            for (Chicken chicken : enemy) {
-                if (
-                        Math.abs((bullet.getX() + (bullet.getWidth() / 2)) - (chicken.getX() + (chicken.getWidth() / 2))) < 35 &&
-                                Math.abs((bullet.getY() + (bullet.getHeight() / 2)) - (chicken.getY() + (chicken.getHeight() / 2))) < 75
-                ) {
-                    bullet.setDestruction(true);
-                    chicken.increaseHealth(2);
-                    if (chicken.isDestruction()) chickenGroup.repaint();
-                    System.out.println("shoot");
-                    break;
+        if (!bullets.isEmpty())
+            for (Bullet bullet : bullets) {
+                for (Chicken chicken : enemy) {
+                    if (
+                            Math.abs((bullet.getX() + (bullet.getWidth() / 2)) - (chicken.getX() + (chicken.getWidth() / 2))) < 50 &&
+                                    Math.abs((bullet.getY() + (bullet.getHeight() / 2)) - (chicken.getY() + (chicken.getHeight() / 2))) < 100
+                    ) {
+                        bullet.setDestruction(true);
+                        chicken.increaseHealth(2);
+                        System.out.println("shoot");
+                        break;
+                    }
                 }
             }
-        }
     }
 
     private void createChickenGroup() {

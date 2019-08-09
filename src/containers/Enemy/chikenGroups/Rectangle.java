@@ -34,9 +34,6 @@ public class Rectangle extends ChickenGroup {
             chicken.setX(chicken.getX() + (speed * time));
         }
         setX(getX()+(speed*time));
-
-        System.out.println("a: " + getX());
-        System.out.println("b: " + chickens.get(0).getX());
     }
 
     @Override

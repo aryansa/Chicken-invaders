@@ -29,7 +29,6 @@ public class Chicken implements DrawbleObject {
     }
 
     public synchronized void move(float time) {
-
     }
 
     void setPower(int power) {
